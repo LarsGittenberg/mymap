@@ -1,402 +1,175 @@
 
+// TODO: Create a map variable
+var map;
+
+// todo: create empty markers array
+var markers = [];
+
+// TODO: Complete the following function to initialize the map
+function initMap() {
+    // TODO: add some map styles...check out snazzy maps online
+    // Create a styles array to use with the map.
 
 
+    // TODO: use a constructor to create a new map JS object. You can use the coordinates
+    // we used, 40.7413549, -73.99802439999996 or your own!
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 38.773935, lng: -77.164356 },
+        zoom: 12,
+        mapTypeControl: false
 
+    });
 
-//LG says: todo - refactor into the m-v-vm knockout.js organization format
-//LG says: model section here:
+    //Create an array of 5 locations objects, including their position property as lat long values
+    var locations = [
+        {
+            title: 'Wegmans',
+            category: 'Food',
+            info: 'This is the Wegmans, and here is an image from Unsplash API',
+            position: { lat: 38.742583, lng: -77.161092 }
+        },
+        {
+            title: 'moviehaus16',
+            category: 'Entertainment',
+            info: 'This is the movie house, and here is an image from Unsplash API',
+            position: { lat: 38.772798, lng: -77.137287 }
+        },
+        {
+            title: 'Traders joe',
+            category: 'Food',
+            info: 'This is the Traders Joe, and here is an image from Unsplash API',
+            position: { lat: 38.781576, lng: -77.189409 }
+        },
+        {
+            title: 'Lee District Rec Center',
+            category: 'Sports',
+            info: 'This is the Sports Center, and here is an image from Unsplash API',
+            position: { lat: 38.774232, lng: -77.108622}
+        },
+        {
+            title: 'Lake Accotink Park',
+            category: 'Sports',
+            info: 'This is the Hiking Trail, and here is an image from Unsplash API',
+            position: { lat: 38.793632, lng: -77.215533}
+        }
+    ];
 
-     // TODO: Create a map variable
-     var map;
+    //LG says: Instantiating a marker,
+    //having it animate-drop,
+    //add event listener to bounce on click and
+    //add an async call for unsplash image related to it's category property
 
-     // todo: create empty markers array
-     var markers = [];
-
-     // TODO: Complete the following function to initialize the map
-     function initMap() {
-        // todo: add some map styles...check out snazzy maps online
-        // Create a styles array to use with the map.
-        var styles = [
-    {
-        "featureType": "administrative",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#3a3935"
-            },
-            {
-                "saturation": 5
-            },
-            {
-                "lightness": -57
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.country",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ea1717"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.province",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.locality",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.neighborhood",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.land_parcel",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#b7caaa"
-            },
-            {
-                "saturation": -14
-            },
-            {
-                "lightness": -18
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.man_made",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#cbdac1"
-            },
-            {
-                "saturation": -6
-            },
-            {
-                "lightness": -9
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#c17118"
-            },
-            {
-                "saturation": 61
-            },
-            {
-                "lightness": -45
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.medical",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#cba923"
-            },
-            {
-                "saturation": 50
-            },
-            {
-                "lightness": -46
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#8ba975"
-            },
-            {
-                "saturation": -46
-            },
-            {
-                "lightness": -28
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#8d9b83"
-            },
-            {
-                "saturation": -89
-            },
-            {
-                "lightness": -12
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#d4dad0"
-            },
-            {
-                "saturation": -88
-            },
-            {
-                "lightness": 54
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#bdc5b6"
-            },
-            {
-                "saturation": -89
-            },
-            {
-                "lightness": -3
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#bdc5b6"
-            },
-            {
-                "saturation": -89
-            },
-            {
-                "lightness": -26
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#a43218"
-            },
-            {
-                "saturation": 74
-            },
-            {
-                "lightness": -51
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#165c64"
-            },
-            {
-                "saturation": 34
-            },
-            {
-                "lightness": -69
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    }
-];
-
-       // TODO: use a constructor to create a new map JS object. You can use the coordinates
-       // we used, 40.7413549, -73.99802439999996 or your own!
-       map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat:  38.773935, lng:-77.164356},
-            zoom: 12,
-            styles: styles,
-            mapTypeControl: false
-
-       });
-
-     /*
-     COMMENTED CODE HERE IS FOR ONE SINGLE MARKER ONLY
-     var jcpenney = {lat: 38.773288, lng: -77.176158};
-
-     var jcpenneyMarker = new google.maps.Marker({
-        position: jcpenney,
-        map: map,
-        title: 'my first marker',
-        animation: google.maps.Animation.DROP
-     });
-
-     var jcpenneyInfoWindow = new google.maps.InfoWindow({
-        content: 'hello from jcpenney!!!!'
-     });
-
-     jcpenneyMarker.addListener('click', function(){
-        jcpenneyInfoWindow.open(map, jcpenneyMarker);
-     });
-     */
-
-     var largeInfoWindow = new google.maps.InfoWindow();
-
-
-     //alternatively, we can create a variable representing an array containing marker objects such as:
-     //..and normally we'd have this in a database, database, DATABASE
-     var locations = [
-        {title:'wegmans', location:{lat: 38.742583, lng: -77.161092 }, category:'food'},
-        {title:'moviehaus16', location:{lat: 38.772798, lng: -77.137287 }, category:'entertainment'},
-        {title:'traderjoe', location:{lat: 38.781576, lng: -77.189409}, category:'food'}
-     ];
-
-     //use the locations array and a js loop to create markers?
-     for (var i=0; i<locations.length; i++) {
-        //get the position and title
-        var position = locations[i].location;
-        var title = locations[i].title;
-        var category = locations[i].category;
-
-        //create marker per each object
+    locations.forEach(function (itm, idx) {
         var marker = new google.maps.Marker({
             map: map,
-            position: position,
-            title: title,
-            category: category,
+            position: itm.position,
+            title: itm.title,
+            category: itm.category,
             animation: google.maps.Animation.DROP,
-            id: i
+            id: idx
         });
 
-        //plug each result of the loop into the markers array
-        markers.push(marker);
-
-        //create an onclick event for each marker on the map
         marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfoWindow);
-            console.log(largeInfoWindow);
+            this.animateStart();
+            this.animateStop();
+
+            if (!marker.infowindow) {
+
+                $.ajax({
+                    url: `https://api.unsplash.com/search/photos?page=1&query=${itm.category}`,
+                    headers: {
+                        Authorization: 'Client-ID 613c59c7bbe49f91f8c148d8c17f7bfbca63b83e5421c7a857e568e3db87c4e1'
+                    }
+                })
+                .done(function(images) {
+
+                    const firstImage = images.results[0];
+                    // console.log(images.results);
+                    // console.log(firstImage.urls.small);
+                    // console.log(targetDiv);
+
+                    marker.infowindow = new google.maps.InfoWindow({
+                        content: `<div>${itm.info}<br/><img src="${firstImage.urls.small}" /></div>`
+                    });
+
+                    marker.infowindow.open(map, marker);
+                })
+                .fail(function () {
+                    //LG says: this is code implemented as part of the project rubric:
+                    alert('something went wrong jQuery AJAX call to Unsplash API')
+                });
+            }
+            else {
+                marker.infowindow.open(map, marker);
+            }
         });
-     }//end for loop
 
-     function populateInfoWindow(marker, infowindow) {
-        //check to make sure infowindow is not already open for this marker
-        if (infowindow.marker !== marker) {
-            infowindow.marker = marker;
-            infowindow.setContent('<div><p>hello_</p><br>'+ marker.title + '<br>' + marker.category +'</div>');
-            infowindow.open(map, marker);
+        marker.addListener('mouseout', function() {
+            setTimeout(function() {
+                marker.infowindow.close();
+            }, 1000)
+        });
 
-            //make sure marker property is cleared when if infowindow is closed
-            infowindow.addListener('closeclick', function() {
-                infowindow.setMarker(null);
-            });
+        marker.animateStart = function() {
+            this.setAnimation(google.maps.Animation.BOUNCE);
         }
-     };
+
+        marker.animateStop = function() {
+            this.setAnimation(null);
+        }
+
+        markers.push(marker);
+    });
+
+    //LG says: viewmodel section here:
+    var viewModel = {
+        categories: ko.observableArray(['Food', 'Entertainment', 'Sports']),
+
+        selectedCategory: ko.observable(),
+
+        observableMarkers: ko.observableArray(markers),
+
+        filterMarkers: function () {
+            this.observableMarkers()
+                .forEach(function (marker, idx) {
+                    // set map to null to remove marker from map
+                    var show = !this.selectedCategory() || marker.category === this.selectedCategory();
+                    marker.setMap(show ? map : null);
 
 
-     }//end init
+
+                    //LG says: Here is less DRY code, but keep as easier for me to think through
+                    // var isCategoryNotSelected = !this.selectedCategory();
+                    // var selectedCategoryMatchesMarkerCategory = marker.category === this.selectedCategory();
+
+                    // var show = false;
+                    // if (isCategoryNotSelected) {
+                    //     show = true;
+                    // }
+
+                    // if (selectedCategoryMatchesMarkerCategory) {
+                    //     show = true
+                    // }
+
+                    // if (show) {
+                    //     marker.setMap(map);
+                    // } else {
+                    //     marker.setMap(null);
+                    // }
 
 
-//LG says: viewmodel section here:
-var viewModel = function() {
-    //code here
-};
+                }.bind(this));
 
-//LG says: instantiate the viewModel here:
-ko.applyBindings(new viewModel());
+            // force the foreach to refresh
+            var data = this.markers().slice(0);
+            this.markers([]);
+            this.markers(data);
+        }
+    };
 
+    //LG says: instantiate the viewModel here:
+    ko.applyBindings(viewModel);
+
+}//end initMap
 
 

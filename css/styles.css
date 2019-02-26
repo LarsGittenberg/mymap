@@ -1,10 +1,13 @@
-
       html,
       body {
         font-family: Arial, sans-serif;
         height: 100%;
         margin: 0;
         padding: 0;
+      }
+
+      img {
+        width: 100px;
       }
 
       .container {
@@ -16,6 +19,11 @@
         font-size: 12px;
       }
 
+      li {
+        height: 1.7em;
+        cursor: pointer;
+      }
+
       h1 {
         color: #525454;
         font-size: 22px;
@@ -23,15 +31,12 @@
         text-align: center;
       }
 
-      #hide-listings,
-      #show-listings {
-        width: 48%;
-      }
+
 
       #map {
         bottom:0px;
-        height: 100%;
-        left: 362px;
+        height: 60%;
+        width: 100%;
         position: absolute;
         right: 0px;
       }
@@ -40,12 +45,24 @@
         background: #fff;
         border: 1px solid #999;
         border-radius: 3px;
-        height: 100%;
+        height: 40%;
         line-height: 35px;
         padding: 10px 10px 30px 10px;
         text-align: left;
-        width: 340px;
+        width: 100%;
       }
 
+@media only screen and (min-width: 769px) {
+
+        #map {
+        height: 100%;
+        left: 300px;
+      }
+
+      .options-box {
+        height: 100%;
+        width: 300px;
+      }
+}
 
 
