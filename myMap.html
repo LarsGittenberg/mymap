@@ -18,7 +18,8 @@
         <select data-bind="options: categories, value: selectedCategory, optionsCaption: 'All', event: { change: filterMarkers }"></select>
           <ul data-bind="foreach: markers">
             <!-- ko if: map -->
-              <li data-bind="text: title, event: { mouseover: animateStart, mouseout: animateStop }">
+            <!--LG says: change to a click event, udacity review #1 requirement 1of2-->
+              <li data-bind="text: title, event: { click: animateStart, mouseout: animateStop }">
             <!-- /ko -->
             </li>
           </ul>
@@ -38,8 +39,9 @@
 
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsAp-QdQbfgyvgm39qUvbv1-s0CYQd5oc&v=3&callback=initMap">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsAp-QdQbfgyvgm39qUvbv1-s0CYQd5oc&v=3&callback=initMap" onerror="myerrorhandler()">
 </script>
+<!--LG says: include onerror event handler, udacity review #1 requirement 2of2-->
   </body>
 
   </html>

@@ -1,68 +1,68 @@
-      html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+html,
+body {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-      img {
-        width: 100px;
-      }
+img {
+  width: 100px;
+}
 
-      .container {
-        height: 100%;
-        position: relative;
-      }
+.container {
+  height: 100%;
+  position: relative;
+}
 
-      input {
-        font-size: 12px;
-      }
+input {
+  font-size: 12px;
+}
 
-      li {
-        height: 1.7em;
-        cursor: pointer;
-      }
+li {
+  height: 1.7em;
+  cursor: pointer;
+}
 
-      h1 {
-        color: #525454;
-        font-size: 22px;
-        margin: 0 0 10px 0;
-        text-align: center;
-      }
+h1 {
+  color: #525454;
+  font-size: 22px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
 
 
 
-      #map {
-        bottom:0px;
-        height: 60%;
-        width: 100%;
-        position: absolute;
-        right: 0px;
-      }
+#map {
+  bottom:0px;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+}
 
-      .options-box {
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 3px;
-        height: 40%;
-        line-height: 35px;
-        padding: 10px 10px 30px 10px;
-        text-align: left;
-        width: 100%;
-      }
+.options-box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  height: 40%;
+  line-height: 35px;
+  padding: 10px 10px 30px 10px;
+  text-align: left;
+  width: 100%;
+}
 
 @media only screen and (min-width: 769px) {
 
-        #map {
-        height: 100%;
-        left: 300px;
-      }
+  #map {
+  height: 100%;
+  left: 300px;
+  }
 
-      .options-box {
-        height: 100%;
-        width: 300px;
-      }
+  .options-box {
+  height: 100%;
+  width: 300px;
+  }
 }
 
 

@@ -27,7 +27,7 @@ The project uses several CDNs and dependencies - you will need to have internet 
 
 Feel free to clone/download from here/Github.
 For basic functionality, the following files are needed:
-- myMap.html
+- myMap.html (you'll need to load and run in a browser)
 In the js folder, you'll need
 - app.js
 - lib folder, containing the Knockout JS lib and and another file with jQuery's library
@@ -42,7 +42,7 @@ If you change the folder structure, you will need to change the file path src/hr
 - This simple project app consists of two parts rendered in the browser: a Google Map with 5 default location markers and a list section whose items correspond to the location markers. The list section contains a dropdown filter.
 
 ## <a name="appbehavior"></a>App Behavior
-- Upon loading, the default of the map and list should be all 5 locations, seen as 5 markers on the map, 5 items on the list. The dropdown default is "all"
+- Upon loading and running myMap.html in a browser, the default of the map and list should be all 5 locations, seen as 5 markers on the map, 5 items on the list. The dropdown default is "all"
 - When the user uses drop down filter, they may select from the categories
 --"food"
 --"entertianment"

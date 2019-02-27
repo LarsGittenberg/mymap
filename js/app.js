@@ -1,17 +1,19 @@
+"use strict”;
 
-// TODO: Create a map variable
+//LG says: include onerror event handler, udacity review #1 requirement 1of2
+function myerrorhandler() {
+    alert('sorry, something went wrong calling the google maps api, try again?');
+};
+
+//Create a map variable
 var map;
 
-// todo: create empty markers array
+//create empty markers array
 var markers = [];
 
-// TODO: Complete the following function to initialize the map
+//Complete the following function to initialize the map
 function initMap() {
-    // TODO: add some map styles...check out snazzy maps online
-    // Create a styles array to use with the map.
-
-
-    // TODO: use a constructor to create a new map JS object. You can use the coordinates
+    // use a constructor to create a new map JS object. You can use the coordinates
     // we used, 40.7413549, -73.99802439999996 or your own!
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 38.773935, lng: -77.164356 },
@@ -84,6 +86,7 @@ function initMap() {
                 .done(function(images) {
 
                     const firstImage = images.results[0];
+                    myarray.push(firstImage);
                     // console.log(images.results);
                     // console.log(firstImage.urls.small);
                     // console.log(targetDiv);
