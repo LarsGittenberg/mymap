@@ -1,4 +1,4 @@
-"use strict”;
+"use strict";
 
 //LG says: include onerror event handler, udacity review #1 requirement 1of2
 function myerrorhandler() {
@@ -86,7 +86,6 @@ function initMap() {
                 .done(function(images) {
 
                     const firstImage = images.results[0];
-                    myarray.push(firstImage);
                     // console.log(images.results);
                     // console.log(firstImage.urls.small);
                     // console.log(targetDiv);
