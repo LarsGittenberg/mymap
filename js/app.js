@@ -5,6 +5,12 @@ function myerrorhandler() {
     alert('sorry, something went wrong calling the google maps api, try again?');
 };
 
+
+//function that gives randomized number to be used to randomize selection from unsplash image array
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 //Create a map variable
 var map;
 
@@ -56,11 +62,7 @@ function initMap() {
         }
     ];
 
-    //LG says: Instantiating a marker,
-    //having it animate-drop,
-    //add event listener to bounce on click and
-    //add an async call for unsplash image related to it's category property
-
+    //LG says: Instantiating a marker
     locations.forEach(function (itm, idx) {
         var marker = new google.maps.Marker({
             map: map,
@@ -71,54 +73,61 @@ function initMap() {
             id: idx
         });
 
-        marker.addListener('click', function() {
+        marker.animateStart = function () {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+        };
+
+        marker.animateStop = function () {
+            this.setAnimation(null);
+        };
+
+        marker.showInfoWindow = function() {
             this.animateStart();
             this.animateStop();
 
             if (!marker.infowindow) {
-
+                var randomPage = getRandomNumber(0, 10);
                 $.ajax({
-                    url: `https://api.unsplash.com/search/photos?page=1&query=${itm.category}`,
+                    url: `https://api.unsplash.com/search/photos?page=${randomPage}&query=${itm.category}`,
                     headers: {
                         Authorization: 'Client-ID 613c59c7bbe49f91f8c148d8c17f7bfbca63b83e5421c7a857e568e3db87c4e1'
                     }
                 })
-                .done(function(images) {
+                    .done(function (images) {
+                        var randomImage = getRandomNumber(0, images.results.length);
+                        const imageResult = images.results[randomImage];
 
-                    const firstImage = images.results[0];
-                    // console.log(images.results);
-                    // console.log(firstImage.urls.small);
-                    // console.log(targetDiv);
+                        marker.infowindow = new google.maps.InfoWindow({
+                            content: `<div>${itm.info}<br/><img src="${imageResult.urls.small}" /></div>`
+                        });
 
-                    marker.infowindow = new google.maps.InfoWindow({
-                        content: `<div>${itm.info}<br/><img src="${firstImage.urls.small}" /></div>`
+                        marker.infowindow.open(map, marker);
+                    })
+                    .fail(function () {
+                        //LG says: this is code implemented as part of the project rubric:
+                        alert('something went wrong jQuery AJAX call to Unsplash API')
                     });
-
-                    marker.infowindow.open(map, marker);
-                })
-                .fail(function () {
-                    //LG says: this is code implemented as part of the project rubric:
-                    alert('something went wrong jQuery AJAX call to Unsplash API')
-                });
             }
             else {
                 marker.infowindow.open(map, marker);
             }
+        };
+
+        marker.hideInfoWindow = function () {
+            if (this.infowindow) {
+                setTimeout(function () {
+                    this.infowindow.close();
+                }.bind(marker), 1000);
+            }
+        }
+
+        marker.addListener('click', function () {
+            marker.showInfoWindow();
         });
 
         marker.addListener('mouseout', function() {
-            setTimeout(function() {
-                marker.infowindow.close();
-            }, 1000)
+            marker.hideInfoWindow();
         });
-
-        marker.animateStart = function() {
-            this.setAnimation(google.maps.Animation.BOUNCE);
-        }
-
-        marker.animateStop = function() {
-            this.setAnimation(null);
-        }
 
         markers.push(marker);
     });
@@ -129,10 +138,10 @@ function initMap() {
 
         selectedCategory: ko.observable(),
 
-        observableMarkers: ko.observableArray(markers),
+        markers: ko.observableArray(markers),
 
         filterMarkers: function () {
-            this.observableMarkers()
+            this.markers()
                 .forEach(function (marker, idx) {
                     // set map to null to remove marker from map
                     var show = !this.selectedCategory() || marker.category === this.selectedCategory();

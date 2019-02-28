@@ -19,7 +19,7 @@
           <ul data-bind="foreach: markers">
             <!-- ko if: map -->
             <!--LG says: change to a click event, udacity review #1 requirement 1of2-->
-              <li data-bind="text: title, event: { click: animateStart, mouseout: animateStop }">
+              <li data-bind="text: title, event: { click: showInfoWindow, mouseout: hideInfoWindow }">
             <!-- /ko -->
             </li>
           </ul>
@@ -41,7 +41,7 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsAp-QdQbfgyvgm39qUvbv1-s0CYQd5oc&v=3&callback=initMap" onerror="myerrorhandler()">
 </script>
-<!--LG says: include onerror event handler, udacity review #1 requirement 2of2-->
+<!--LG says: include onerror event handler in map api call above, udacity review #1 requirement 2of2-->
   </body>
 
   </html>
